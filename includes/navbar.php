@@ -19,46 +19,77 @@
                                             <button class="tablink" onclick="openPage('signup', this, 'red')">Sing up</button>
                                         </div>
                                         <!-- Login Form -->
-                                    <div id="login" class="tabcontent">
+                                        <div id="login" class="tabcontent">
 
-                                    
+                                            <form method="post" action="login.php">
+                                                <div class="txt_field">
+                                                    <input type="text" required>
+                                                    <span></span>
+                                                    <label>Username</label>
+                                                </div>
+                                                <div class="txt_field">
+                                                    <input type="password" required>
+                                                    <span></span>
+                                                    <label>Password</label>
+                                                </div>
+                                            
+                                                <div class="pass"> 
+                                                    <a class="pass" href="pages/forgotpassword.php">Forgot Password?</a>
+                                                </div>
+                                                
+                                                <input type="submit" value="Login">
 
-                                    <form method="post" action="login.php">
-                                        <div class="txt_field">
-                                            <input type="text" required>
-                                            <span></span>
-                                            <label>Username</label>
+                                            </form>
                                         </div>
-                                        <div class="txt_field">
-                                            <input type="password" required>
-                                            <span></span>
-                                            <label>Password</label>
-                                        </div>
-                                    
-                                        <div class="pass"> 
-                                            <a class="pass" href="pages/forgotpassword.php">Forgot Password?</a>
-                                        </div>
-                                        
-                                        <input type="submit" value="Login">
-                                        <!-- <div class="signup_link">
-                                        Not a member? <a href="signupform.php">Signup</a>
-                                        </div> -->
-
-
-                                    </div>
                                      <!-- Signup Form -->
                                     <div id="signup" class="tabcontent">
-                                    <label for="name">Name</label>
-                                            <input type="text" id="name" name="name" required>
-                                            <label for="email">Email</label>
-                                            <input type="email" id="email" name="email" required>
-                                            <label for="password">Password</label>
-                                            <input type="password" id="password" name="password" required>
-                                            <button type="submit" class="btn">Sign Up</button>
+                                        <form action="" >
+                                            <div class="parent">
+                                                <!-- first col -->
+                                                <div class="signup-col-grid-1"> 
+                                                    <div class="txt_field">
+                                                        <input type="text" required>
+                                                        <span></span>
+                                                        <label>Username</label>
+                                                    </div>
+                                                    <div class="txt_field">
+                                                        <input type="text" required>
+                                                        <span></span>
+                                                        <label>First name</label>
+                                                    </div>
+                                                    <div class="txt_field">
+                                                        <input type="Email" required>
+                                                        <span></span>
+                                                        <label>E-mail</label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- second col -->
+                                                <div class="signup-col-grid-2"> 
+                                                    <div class="txt_field">
+                                                        <input type="password" required>
+                                                        <span></span>
+                                                        <label>Password</label>
+                                                    </div>
+                                                    <div class="txt_field">
+                                                        <input type="password" required>
+                                                        <span></span>
+                                                        <label>Last name</label>
+                                                    </div>
+                                                    <div class="txt_field">
+                                                        <input type="text" required>
+                                                        <span></span>
+                                                        <label>Address</label>
+                                                    </div>
+                                                </div>
+                                                <div class="signup_button">
+                                                    <input type="submit" value="Sing up">    
+                                                </div>
+                                            </div>         
+                                        </form>
                                     </div>
-                                </div>
-
-                                
+                                        
+                                    
                             </div>              
                 </div>
                  <!-- End of modal -->
@@ -74,7 +105,7 @@
                                 </div>
                                 <nav>
                                     <ul>
-                                        <li><a href="main.html">Home</a></li>
+                                        <li><a href="index.php">Home</a></li>
                                         <li><a href="index.html">Products</a></li>
                                         <li>
                                             

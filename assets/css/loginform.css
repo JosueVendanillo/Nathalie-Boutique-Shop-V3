@@ -10,7 +10,7 @@ body{
   padding: 0;
   /* background: linear-gradient(120deg,#edc0e3, #c29ed1); */
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .center{
   position: absolute;
@@ -125,3 +125,24 @@ input[type="submit"]:hover{
 .signup_link a:hover{
   text-decoration: underline;
 } */
+
+
+
+.parent {
+
+  /* width: auto; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 2px;
+  }
+  
+  .signup-col-grid-1 { grid-area: 1 / 1 / 2 / 2; }
+  .signup-col-grid-2 { grid-area: 1 / 2 / 2 / 3; }
+
+
+  .signup_button{
+    position: relative;
+    left: 50%;
+  }
