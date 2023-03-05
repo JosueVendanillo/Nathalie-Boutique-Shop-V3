@@ -194,6 +194,8 @@ h4{
 	background-color: #fef2ff;
 	text-align: center;
 	font-size: 14px;
+	position: sticky;
+	
 }
 .footer .social{
 	text-align: center;

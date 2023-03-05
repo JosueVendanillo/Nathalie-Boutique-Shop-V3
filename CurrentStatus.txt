@@ -1,0 +1,69 @@
+
+Customer side
+Signup 
+	Notes: 
+		can create accounts  but need form validation
+
+Login 
+	Notes: 
+		Can Login but need form validation
+
+Homepage with Login Session
+
+	Notes: Homepage is completed but session is not yet implemented
+
+	Not scrollable
+	Must be scrollable
+
+Products Page
+	
+	Note: Products can View/display
+
+	Search bar still not working / can't search
+	
+	Filter Still not working (optional)
+
+
+	Cart not yet created
+	Purchase function not yet created
+	Customer Delivery Details
+	Payments
+		
+
+
+Admin side
+
+need to make dynamic page for admin (navbar & Sidebar)
+
+Login with Session
+	Note:
+		Not yet created
+
+        Admin account is already created
+
+Create / Add product
+	Notes: image uploaded can't be cleared
+	Products can be add ? - done
+	When clear button is clicked all inputs has been also cleared - done 
+    image name is also displayed below the image
+
+Read / View product
+	Notes: 
+    showing of products in inventory - Done
+	After the product is successfully added, unable to refresh the page ,Url ?msg=""; needs to be cleared - Done
+	Need to limit the table, Pagination ?? - Done added Pagination
+    Search bar is also functioning
+	
+Update / Edit product
+	Notes: image uploaded can't be cleared
+	When clear button is clicked all inputs has been also cleared - done
+    image name is also displayed below the image
+    
+
+Delete / remove Product 
+
+	Note: Delete function is working properly
+
+    Code also fixed in proper and more secure way
+
+	Prompt No result found if item is not existing

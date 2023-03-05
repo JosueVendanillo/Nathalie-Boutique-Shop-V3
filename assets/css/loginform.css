@@ -142,7 +142,4 @@ input[type="submit"]:hover{
   .signup-col-grid-2 { grid-area: 1 / 2 / 2 / 3; }
 
 
-  .signup_button{
-    position: relative;
-    left: 50%;
-  }
+  
