@@ -1,11 +1,4 @@
-    
-    <?php 
-      require_once './db/database.php'
 
-
-      
-    ?>
-    
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -18,9 +11,11 @@
         <link href="https://fonts.googleapis.com/css2?
         family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+         <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-LZMmv1rwus7gupN2JiQ7fNkx6gXdIbYiOk/uFW81TdyT9zVRskQnKNmFlgm6U/ljPY4ySm4Ufhq3Ez8+1CewHg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- Landingpage css -->
         <link rel="stylesheet" href="./assets/css/landingpage.css">
         <!-- Loginform css -->
@@ -82,33 +77,39 @@
 
 
 
-/* Style tab links */
-.tablink {
-  background-color: #555;
-  color: white;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  width: 25%;
-}
 
-.tablink:hover {
-  background-color: #777;
-}
+		.dropdown {
+				position: relative;
+				display: inline-block;
+			}
 
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-  color: white;
-  display: none;
-  padding: 100px 20px;
-  height: 100%;
-}
+			.dropdown-content {
+				background:gray;
+				display: none;
+				position: absolute;
+				z-index: 1;
+			}
 
-#Home {background-color: red;}
-#News {background-color: green;}
+			.dropdown:hover .dropdown-content {
+				display: block;
+			}
+
+			.dropdown-content a {
+				color: #000;
+				padding: 12px 16px;
+				text-decoration: none;
+				display: block;
+			}
+
+			.dropdown-content a:hover {
+				background-color: #f1f1f1;
+			}
+			
+
+
+
+
+
 
 
 /* Product search bar */

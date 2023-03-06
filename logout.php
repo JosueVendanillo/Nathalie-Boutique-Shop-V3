@@ -1,10 +1,10 @@
-<?php 
-session_start();
+<?php
 
-if(session_destroy()){
-    header("location: index.php");
-}
-
-
+   session_start();
+   
+   if(session_destroy()) {
+      header("Location: index.php");
+       
+   }
 
 ?>

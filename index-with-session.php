@@ -1,145 +1,10 @@
-<?php
-
- include './db/database.php';
-
-// include 'useractive.php';
-
-// Retrieve session variables
-// $username = $_SESSION['username'];
-
+<?php 
+ 
+ include 'useractive.php';
 ?>
 
-<!-- signup -->
-<?php
-            if(isset($_POST['register'])){
-                // Get form data
-                $username = $_POST['registerUsername'];
-                $password = $_POST['registerPassword'];
-                $firstname = $_POST['registerFirstName'];
-                $lastname = $_POST['registerLastName'];
-                $email = $_POST['registerEmail'];
-                $address = $_POST['registerAddress'];
-                
-                // Check if user already exists
-                $stmt = $conn->prepare("SELECT user_name, user_email FROM user_accounts WHERE user_name = ? OR user_email = ?");
-                $stmt->bind_param("ss", $username, $email);
-                $stmt->execute();
-                $stmt->store_result();
-                
-                if ($stmt->num_rows > 0) {
-                    // echo "Username or email already exists";
-                    header("Location: index.php?msg=Username or email already exists");
-                    exit();
-                }
-                
-                
-                // encrypt the password for protection if someone viewed the database
-                $password_hash = password_hash($_POST['registerPassword'],PASSWORD_DEFAULT);
-                
-                // Insert new user
-                $stmt = $conn->prepare("INSERT INTO user_accounts (`user_name`,`user_password`,`first_name`,`last_name`,`user_email`,`user_address`) 
-                VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("ssssss", $username, $password_hash, $firstname, $lastname, $email, $address);
-                $stmt->execute();
-
-                if ($stmt->affected_rows > 0) {
-                    // echo 'Customer Account created sucessfully';
-                    header("Location: index.php?msg=Customer Account created sucessfully!");
-                } else {
-                    echo "Failed: " . mysqli_error($conn);
-                    exit();
-                }
-            }
-        ?>
-
-        <!-- Login -->
-            <?php
-           if (isset($_POST['login'])) {
-            $username = mysqli_real_escape_string($conn,$_POST['loginUsername']);
-            $password = mysqli_real_escape_string($conn,$_POST['loginPassword']);
-            $remember_me = isset($_POST['remember_me']);
-        
-            // Validate username and password
-            $query = "SELECT * FROM user_accounts WHERE user_name = '$username' AND user_password = '$password'";
-            $result = mysqli_query($conn, $query);
-            $row = mysqli_fetch_assoc($result);
-        
-            if (mysqli_num_rows($result) == 1) {
-                // User has provided valid credentials
-        
-                // Set cookie if "Remember me" is checked
-                if ($remember_me) {
-                    setcookie('username', $username, time() + (3 * 60)); // Expires in 3 minutes
-                    setcookie('password', $password, time() + (3 * 60)); // Expires in 3 minutes
-                }
-
-                // Redirect to home page or dashboard
-
-                session_start();
-                // Set session variables
-                $_SESSION['user_id']    = $row['user_id'];
-                $_SESSION['username']   = $row['user_name'];
-                $_SESSION['fname']      = $row['first_name'];
-                $_SESSION['lname']      = $row['last_name'];
-                $_SESSION['email']      = $row['user_email'];
-                $_SESSION['address']    = $row['user_address'];
 
 
-
-                // Redirect to home page or dashboard
-                header("Location: index-with-session.php");
-                exit();
-
-            } else {
-                // User has provided invalid credentials
-                // ...
-
-                header("Location: index.php?msg=Incorrect Username or Password");
-                exit();
-            }
-        
-            // Close the database connection
-            mysqli_close($conn);
-        }
-        
-        if (isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
-            $username = $_COOKIE['username'];
-            $password = $_COOKIE['password'];
-        
-            // Connect to the database
-            // $conn = mysqli_connect($host, $user, $pass, $db);
-        
-            // Validate username and password
-            $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-            $result = mysqli_query($conn, $query);
-        
-            if (mysqli_num_rows($result) == 1) {
-                // User has valid cookies and is authenticated
-        
-                // Redirect to home page or dashboard
-
-                // Start session
-                session_start();
-                // Set session variables
-                $_SESSION['user_id']    = $row['user_id'];
-                $_SESSION['username']   = $row['user_name'];
-                
-                $_SESSION['fname']      = $row['first_name'];
-                $_SESSION['lname']      = $row['last_name'];
-                $_SESSION['email']      = $row['user_email'];
-                $_SESSION['address']    = $row['user_address'];
-
-
-                // Redirect to home page or dashboard
-                header("Location: index-with-session.php");
-                exit();
-            }
-        
-            // Close the database connection
-            mysqli_close($conn);
-        }
-        
-            ?>
 
 
 
@@ -149,7 +14,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Home - Nathalie's Boutique Shop</title>
 
         
         <link href="https://fonts.googleapis.com/css2?
@@ -178,66 +43,186 @@
 		/>
 		
 		
-		
-		
-		<!-- Landingpage css -->
-        <link rel="stylesheet" href="./assets/css/landingpage.css">
-        <!-- Loginform css -->
-        <!-- <link rel="stylesheet" href="assets/css/loginform.css"> -->
-        <!-- Products page -->
-        <!-- <link rel="stylesheet" href="../assets/css/productspage.css"> -->
-		<!-- Login Modal -->
+
+    <!-- Landingpage css -->
+    <link rel="stylesheet" href="./assets/css/landingpage.css">
+
+    <!-- Login Modal -->
 		<link rel="stylesheet" href="../Nathalie Shop V3/assets/css/loginmodal.css">
-
-
 </head>
 
 <style>
 
-			/* .dropdown {
-				position: relative;
-				display: inline-block;
-			}
+body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+    
+/* dropdown navbar a link - user session*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-			.dropdown-content {
-				background:gray;
-				display: none;
-				position: absolute;
-				z-index: 1;
-			}
+.dropdown-content {
+	border-radius: 0px 0px 15px 15px;
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #ad1845;
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 0; /* remove left and right padding */
+}
 
-			.dropdown:hover .dropdown-content {
-				display: block;
-			}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
-			.dropdown-content a {
-				color: #000;
-				padding: 12px 16px;
-				text-decoration: none;
-				display: block;
-			}
+.dropdown-content a {
+    color: white;
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    white-space: nowrap; /* prevent line breaks */
+    text-align: center;
+}
 
-			.dropdown-content a:hover {
-				background-color: #f1f1f1;
-			}
-			*/
+.dropdown-content a:hover {
+    background-color: whitesmoke;
+    color: black;
+}
+
+
+			
 </style>
 
-<body>
 
+
+<body>
 <!-- Modal Here -->
 <div id="myModal" class="modal">
 
+			<!-- Alert for sign up-->
+            <?php
+                if(isset($_GET['msg'])){
+                    $msg = $_GET['msg'];
+                    $countdown = 5; // Countdown time in seconds
+
+                    if($msg === 'Customer Account created sucessfully!'){
+
+                        echo '
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ' . $msg . '
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div id="countdown" style="font-weight: bold;"></div>
+                          </div>
+                          <script>
+                            var countdown = ' . $countdown . ';
+                            var countdownElem = document.getElementById("countdown");
+                        
+                            var intervalId = setInterval(function() {
+                              countdown--;
+                              countdownElem.innerHTML = "This alert will disappear in " + countdown + " seconds.";
+                        
+                              if (countdown == 0) {
+                                clearInterval(intervalId);
+                                removeAlert();
+                              }
+                            }, 1000);
+                        
+                            function removeAlert() {
+                              document.querySelector(\'.alert\').remove();
+                              window.location.href=\'http://localhost:8080/nathalie%20shop%20V3/index-with-session.php\';
+                            }
+                            
+                            document.querySelector(\'.btn-close\').addEventListener("click", function() {
+                              clearInterval(intervalId);
+                              removeAlert();
+                            });
+                          </script>
+                        ';
+                    } else if($msg === 'Username or email already exists!'){
+                        echo '
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            ' . $msg . '
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div id="countdown" style="font-weight: bold;"></div>
+                          </div>
+                          <script>
+                            var countdown = ' . $countdown . ';
+                            var countdownElem = document.getElementById("countdown");
+                        
+                            var intervalId = setInterval(function() {
+                              countdown--;
+                              countdownElem.innerHTML = "This alert will disappear in " + countdown + " seconds.";
+                        
+                              if (countdown == 0) {
+                                clearInterval(intervalId);
+                                removeAlert();
+                              }
+                            }, 1000);
+                        
+                            function removeAlert() {
+                              document.querySelector(\'.alert\').remove();
+                              window.location.href=\'http://localhost:8080/nathalie%20shop%20V3/index-with-session.php\';
+                            }
+                            
+                            document.querySelector(\'.btn-close\').addEventListener("click", function() {
+                              clearInterval(intervalId);
+                              removeAlert();
+                            });
+                          </script>
+                        ';
+                    }else if($msg === 'Incorrect Username or Password'){
+
+                        echo '
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            ' . $msg . '
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div id="countdown" style="font-weight: bold;"></div>
+                          </div>
+                          <script>
+                            var countdown = ' . $countdown . ';
+                            var countdownElem = document.getElementById("countdown");
+                        
+                            var intervalId = setInterval(function() {
+                              countdown--;
+                              countdownElem.innerHTML = "This alert will disappear in " + countdown + " seconds.";
+                        
+                              if (countdown == 0) {
+                                clearInterval(intervalId);
+                                removeAlert();
+                              }
+                            }, 1000);
+                        
+                            function removeAlert() {
+                              document.querySelector(\'.alert\').remove();
+                              window.location.href=\'http://localhost:8080/nathalie%20shop%20V3/index-with-session.php\';
+                            }
+                            
+                            document.querySelector(\'.btn-close\').addEventListener("click", function() {
+                              clearInterval(intervalId);
+                              removeAlert();
+                            });
+                          </script>
+                        ';
+
+                    }
+                }
+        ?>
+
+
   <!-- Modal content -->
   <div class="modal-content">
-
     <span class="close">&times;</span>
+
 	<!-- Modal body -->
-		<div class="d-flex  justify-content-center">
+		<div class="d-flex justify-content-center">
 
-      
+                                <div class="flex-column ">
 
-                            <div class="flex-column ">
 
                                     <div class=" d-flex justify-content-center align-items-center">
                                         <img src="./assets/img/background/logo.jpg" alt="" class="img-fluid mb-3" width="200px" height="200px">
@@ -352,7 +337,8 @@
                                         </div>
                                     </div>
                                     <!-- Pills content -->
-                            </div> 
+                              
+                                    </div>
                 
        </div>
           <!-- End of  Modal body -->
@@ -360,27 +346,47 @@
   <!-- End of Modal content -->
 </div>
 
-  <!--End of  Modal  -->
+  <!-- End of Modal  -->
 
 
 
 
 <header class="">
-    <div class="navbar px-5 " >
+    <div class="navbar px-t">
         <div class="logo">
             <a href="main.html"><img src="./assets/img/products/logo.jpg" width="180px"> </a>
         </div>
-       
-        
+
         <nav>
-            <ul >
-                <li><a href="index.php" style="background: #ad1845; color:white;">Home</a></li>
-                <li>
-                    
-                    <a href="products.php"> Products </a>
-                </li>
+            <ul>
+                <li><a href="index-with-session.php" style="background: #ad1845; color:white;">Home</a></li>
+                <li><a href="products.php">Products</a></li>
                 <li class="dropdown">
-                    <a id="myBtn" style="color:#ad1845" onMouseOver="this.style.color='white'"  onMouseOut="this.style.color='#ad1845'">Login</a>
+                    <a  id="myBtn"  style="color:#ad1845" onMouseOver="this.style.color='white'"  onMouseOut="this.style.color='#ad1845'" >
+                                <?php 
+                                
+  
+                                        if(empty($_SESSION['username'])){
+                                            echo 'Login';
+                                        }else{
+                                            echo 'Welcome'.','.$_SESSION['username'];
+                                        }	
+
+                                ?>
+                    </a>
+
+                    <div class="dropdown-content">
+                        <?php
+
+								if(isset($_SESSION['username'])){
+									// echo '<a href="login-form.php">Login</a>';
+									echo '<a href="profile.php">Profile</a>';
+									echo '<a href="logout.php">Logout</a>';
+									
+								} 
+                        ?>
+                    </div>
+
                 </li>
             </ul>
         </nav>
@@ -542,7 +548,10 @@
 include('./includes/scripts.php');
 include('./includes/footer.php');
 ?>
-        <script src="./assets/js/loginmodal.js"></script>
+
+<script src="./assets/js/loginmodal.js"></script>
+
+
 		<!-- MDB -->
 		<script
 		type="text/javascript"
@@ -550,5 +559,7 @@ include('./includes/footer.php');
 		></script>
 		
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-		</body>
-    </html>
+		
+    
+</body>
+</html>

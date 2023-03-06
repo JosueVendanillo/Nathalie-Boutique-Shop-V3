@@ -1,16 +1,13 @@
-<?php
-
- include './db/database.php';
-
-// include 'useractive.php';
-
-// Retrieve session variables
-// $username = $_SESSION['username'];
-
+<?php 
+    include './db/database.php';
 ?>
 
-<!-- signup -->
+<!-- sign up -->
 <?php
+
+  // Start session
+  
+
             if(isset($_POST['register'])){
                 // Get form data
                 $username = $_POST['registerUsername'];
@@ -19,38 +16,35 @@
                 $lastname = $_POST['registerLastName'];
                 $email = $_POST['registerEmail'];
                 $address = $_POST['registerAddress'];
-                
+
                 // Check if user already exists
                 $stmt = $conn->prepare("SELECT user_name, user_email FROM user_accounts WHERE user_name = ? OR user_email = ?");
                 $stmt->bind_param("ss", $username, $email);
                 $stmt->execute();
                 $stmt->store_result();
-                
+
                 if ($stmt->num_rows > 0) {
                     // echo "Username or email already exists";
-                    header("Location: index.php?msg=Username or email already exists");
+                    header("Location: login-form.php?msg=Username or email already exists");
                     exit();
                 }
-                
-                
-                // encrypt the password for protection if someone viewed the database
-                $password_hash = password_hash($_POST['registerPassword'],PASSWORD_DEFAULT);
-                
+
                 // Insert new user
                 $stmt = $conn->prepare("INSERT INTO user_accounts (`user_name`,`user_password`,`first_name`,`last_name`,`user_email`,`user_address`) 
                 VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("ssssss", $username, $password_hash, $firstname, $lastname, $email, $address);
+                $stmt->bind_param("ssssss", $username, $password, $firstname, $lastname, $email, $address);
                 $stmt->execute();
 
                 if ($stmt->affected_rows > 0) {
                     // echo 'Customer Account created sucessfully';
-                    header("Location: index.php?msg=Customer Account created sucessfully!");
+                    header("Location: login-form.php?msg=Customer Account created sucessfully!");
                 } else {
                     echo "Failed: " . mysqli_error($conn);
                     exit();
                 }
             }
         ?>
+
 
         <!-- Login -->
             <?php
@@ -79,6 +73,7 @@
                 // Set session variables
                 $_SESSION['user_id']    = $row['user_id'];
                 $_SESSION['username']   = $row['user_name'];
+                
                 $_SESSION['fname']      = $row['first_name'];
                 $_SESSION['lname']      = $row['last_name'];
                 $_SESSION['email']      = $row['user_email'];
@@ -87,7 +82,7 @@
 
 
                 // Redirect to home page or dashboard
-                header("Location: index-with-session.php");
+                header("Location: index.php");
                 exit();
 
             } else {
@@ -107,7 +102,7 @@
             $password = $_COOKIE['password'];
         
             // Connect to the database
-            // $conn = mysqli_connect($host, $user, $pass, $db);
+            $conn = mysqli_connect($host, $user, $pass, $db);
         
             // Validate username and password
             $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
@@ -131,7 +126,7 @@
 
 
                 // Redirect to home page or dashboard
-                header("Location: index-with-session.php");
+                header("Location: index.php");
                 exit();
             }
         
@@ -143,107 +138,184 @@
 
 
 
+
+
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 
-        
-        <link href="https://fonts.googleapis.com/css2?
-        family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-        
-		
 
-		  <!-- Font Awesome -->
-		<link
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-		rel="stylesheet"
-		/>
-		<!-- Google Fonts -->
-		<link
-		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-		rel="stylesheet"
-		/>
-		<!-- MDB -->
-		<link
-		href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
-		rel="stylesheet"
-		/>
-		
-		
-		
-		
-		<!-- Landingpage css -->
-        <link rel="stylesheet" href="./assets/css/landingpage.css">
-        <!-- Loginform css -->
-        <!-- <link rel="stylesheet" href="assets/css/loginform.css"> -->
-        <!-- Products page -->
-        <!-- <link rel="stylesheet" href="../assets/css/productspage.css"> -->
-		<!-- Login Modal -->
-		<link rel="stylesheet" href="../Nathalie Shop V3/assets/css/loginmodal.css">
-
+  <!-- Font Awesome -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+  rel="stylesheet"
+/>
 
 </head>
 
+
 <style>
+    body{
+        margin: 0;
+        padding: 0;
+      
+        overflow: hidden;
+        background: #ffc8dd;
+       
 
-			/* .dropdown {
-				position: relative;
-				display: inline-block;
-			}
+    }
 
-			.dropdown-content {
-				background:gray;
-				display: none;
-				position: absolute;
-				z-index: 1;
-			}
+    .container{
+        position: relative;
+        margin-top: 100px;
+        height: 100%;
+        /* background: whitesmoke; */
+        
+    }
 
-			.dropdown:hover .dropdown-content {
-				display: block;
-			}
 
-			.dropdown-content a {
-				color: #000;
-				padding: 12px 16px;
-				text-decoration: none;
-				display: block;
-			}
 
-			.dropdown-content a:hover {
-				background-color: #f1f1f1;
-			}
-			*/
 </style>
+
 
 <body>
 
-<!-- Modal Here -->
-<div id="myModal" class="modal">
+ 
+            <div class="container ">
 
-  <!-- Modal content -->
-  <div class="modal-content">
+            <!-- Alert for sign up-->
+            <?php
+                if(isset($_GET['msg'])){
+                    $msg = $_GET['msg'];
+                    $countdown = 5; // Countdown time in seconds
 
-    <span class="close">&times;</span>
-	<!-- Modal body -->
-		<div class="d-flex  justify-content-center">
+                    if($msg === 'Customer Account created sucessfully!'){
 
-      
+                        echo '
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ' . $msg . '
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div id="countdown" style="font-weight: bold;"></div>
+                          </div>
+                          <script>
+                            var countdown = ' . $countdown . ';
+                            var countdownElem = document.getElementById("countdown");
+                        
+                            var intervalId = setInterval(function() {
+                              countdown--;
+                              countdownElem.innerHTML = "This alert will disappear in " + countdown + " seconds.";
+                        
+                              if (countdown == 0) {
+                                clearInterval(intervalId);
+                                removeAlert();
+                              }
+                            }, 1000);
+                        
+                            function removeAlert() {
+                              document.querySelector(\'.alert\').remove();
+                              window.location.href=\'http://localhost:8080/nathalie%20shop%20V3/login-form.php\';
+                            }
+                            
+                            document.querySelector(\'.btn-close\').addEventListener("click", function() {
+                              clearInterval(intervalId);
+                              removeAlert();
+                            });
+                          </script>
+                        ';
+                    } else if($msg === 'Username or email already exists!'){
+                        echo '
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            ' . $msg . '
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div id="countdown" style="font-weight: bold;"></div>
+                          </div>
+                          <script>
+                            var countdown = ' . $countdown . ';
+                            var countdownElem = document.getElementById("countdown");
+                        
+                            var intervalId = setInterval(function() {
+                              countdown--;
+                              countdownElem.innerHTML = "This alert will disappear in " + countdown + " seconds.";
+                        
+                              if (countdown == 0) {
+                                clearInterval(intervalId);
+                                removeAlert();
+                              }
+                            }, 1000);
+                        
+                            function removeAlert() {
+                              document.querySelector(\'.alert\').remove();
+                              window.location.href=\'http://localhost:8080/nathalie%20shop%20V3/login-form.php\';
+                            }
+                            
+                            document.querySelector(\'.btn-close\').addEventListener("click", function() {
+                              clearInterval(intervalId);
+                              removeAlert();
+                            });
+                          </script>
+                        ';
+                    }else if($msg === 'Incorrect Username or Password'){
 
-                            <div class="flex-column ">
+                        echo '
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            ' . $msg . '
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div id="countdown" style="font-weight: bold;"></div>
+                          </div>
+                          <script>
+                            var countdown = ' . $countdown . ';
+                            var countdownElem = document.getElementById("countdown");
+                        
+                            var intervalId = setInterval(function() {
+                              countdown--;
+                              countdownElem.innerHTML = "This alert will disappear in " + countdown + " seconds.";
+                        
+                              if (countdown == 0) {
+                                clearInterval(intervalId);
+                                removeAlert();
+                              }
+                            }, 1000);
+                        
+                            function removeAlert() {
+                              document.querySelector(\'.alert\').remove();
+                              window.location.href=\'http://localhost:8080/nathalie%20shop%20V3/login-form.php\';
+                            }
+                            
+                            document.querySelector(\'.btn-close\').addEventListener("click", function() {
+                              clearInterval(intervalId);
+                              removeAlert();
+                            });
+                          </script>
+                        ';
 
-                                    <div class=" d-flex justify-content-center align-items-center">
+                    }
+                }
+        ?>
+
+                    <div class="d-flex justify-content-center">
+
+                                <div class=" border rounded-2 p-5 border-secondary bg-light">
+
+                                    <div class=" d-flex flex-column justify-content-center align-items-center">
                                         <img src="./assets/img/background/logo.jpg" alt="" class="img-fluid mb-3" width="200px" height="200px">
                                         <h4 class="mb-3 ">Customer Portal</h4>
                                     </div>
                                 
+
 
                                     <!-- Pills navs -->
                                     <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
@@ -352,203 +424,19 @@
                                         </div>
                                     </div>
                                     <!-- Pills content -->
-                            </div> 
+                                </div>
+                                <!-- End of container 2 -->
                 
-       </div>
-          <!-- End of  Modal body -->
-  </div>
-  <!-- End of Modal content -->
-</div>
-
-  <!--End of  Modal  -->
-
-
-
-
-<header class="">
-    <div class="navbar px-5 " >
-        <div class="logo">
-            <a href="main.html"><img src="./assets/img/products/logo.jpg" width="180px"> </a>
-        </div>
-       
-        
-        <nav>
-            <ul >
-                <li><a href="index.php" style="background: #ad1845; color:white;">Home</a></li>
-                <li>
-                    
-                    <a href="products.php"> Products </a>
-                </li>
-                <li class="dropdown">
-                    <a id="myBtn" style="color:#ad1845" onMouseOver="this.style.color='white'"  onMouseOut="this.style.color='#ad1845'">Login</a>
-                </li>
-            </ul>
-        </nav>
-        <a href="index.html"><img src="./assets/img/products/cart.png" width="30px" height="30px"></a>
-    </div>
-</header>
-
-
-
-<div class="container" style="margin-top: 50px ;">
-    <div class="row">
-    	<div class="col-2">
-    		<h1>Give Your Kids A Happy <br>Smile In Their Faces!</h1>
-    		<p>The smile in their faces is adorable nothing can beat if your kids are happy<br>with what they're wearing.</p>
-    		<a href="loginform.php" class="btn">Explore Now &#8594;</a>
-    	</div>
-    	<div class="col-2">
-    		<img src="./assets/img/products/bg1.jpg">
-    	</div>
-    </div>
-
-
-    <!-------- featured products ----------->
-    <h1 class="title">" Featured Products "</h1>
-    <div class="categories">
-    	<div class="small-container">
-    	<div class="row">                                                                
-    		<div class="col-3">
-    			<img src="./assets/img/products/cat1.jpg">
-    			<h4>Anna Dress 1</h4>
-    			<div class="rating">
-                    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star-o"></i>
-                </div>
-    			<p>₱789</p>
-    		</div>
-    		<div class="col-3">
-    			<img src="./assets/img/products/cat2.jpg">
-    			<h4>Sleeping Beauty Dress</h4>
-    			<div class="rating">
-                    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star-o"></i>
-                </div>
-    			<p>₱750</p>
-    		</div>
-    		<div class="col-3">
-    			<img src="./assets/img/products/cat3.jpg">
-    			<h4>Anna Dress 2</h4>
-    			<div class="rating">
-                    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star-o"></i>
-				</div>
-    			<p>₱779</p>
-    		</div>
-    		<div class="col-3">
-    			<img src="./assets/img/products/edits/tatiana.jpg">
-    			<h4>Tatiana Dress </h4>
-    			<div class="rating">
-                    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star-o"></i>
-				</div>
-    			<p>₱769</p>
-    		</div>
-    		<div class="col-3">
-    			<img src="./assets/img/products/edits/moana.jpg">
-    			<h4>Anna Dress 2</h4>
-    			<div class="rating">
-                    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star-o"></i>
-				</div>
-    			<p>₱779</p>
-    		</div>
-    		<div class="col-3">
-    			<img src="./assets/img/products/edits/snowwhite.jpg">
-    			<h4>Anna Dress 2</h4>
-    			<div class="rating">
-                    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star"></i>
-				    <i class="fa fa-star-o"></i>
-				</div>
-    			<p>₱799</p>
-    		</div>
-    	</div>
-    	</div>
-
-    </div>
-
-
-    <div class="explore-products-container" >
-        <a href="loginform.php" class="explore-products"> Explore more products</a>
-    </div>
-
-
-	<div style="margin-top:50px;">
-
-
-		<h1 class="title">" Satisfied Customers "</h1>
-		<div class="testimonial">
-			<div class="small-container">
-				<div class="row">
-					<div class="col-3">
-						<img src="./assets/img/products/feed1.jpg">
-						<div class="rating">
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star-half-o"></i>
-						</div>
-						
-					</div>
-					<div class="col-3">
-						<img src="./assets/img/products/feed2.jpg">    
-                     <div class="rating">
-						 <i class="fa fa-star"></i>
-						 <i class="fa fa-star"></i>
-						 <i class="fa fa-star"></i>
-						 <i class="fa fa-star"></i>
-						 <i class="fa fa-star-half-o"></i>
-						</div>
-					</div>
-					<div class="col-3">
-						<img src="./assets/img/products/feed3.jpg"> 
-						<div class="rating">
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star-half-o"></i>
-						</div>
-					</div>
+                    </div>
             </div>
-        </div>
-    </div>
-</div>
-	
-</div>
 
 
 
-<?php
-include('./includes/scripts.php');
-include('./includes/footer.php');
-?>
-        <script src="./assets/js/loginmodal.js"></script>
-		<!-- MDB -->
-		<script
-		type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
-		></script>
-		
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-		</body>
-    </html>
+    
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+></script>
+</body>
+</html>

@@ -2,33 +2,77 @@
 Customer side
 Signup 
 	Notes: 
-		can create accounts  but need form validation
+		can create accounts  
+
+	Pending:
+	Alert is not prompting
+	need form validation
+
 
 Login 
 	Notes: 
-		Can Login but need form validation
+		Can Login 
 
-Homepage with Login Session
+	Pending:
+	Alert is not prompting
+	need form validation
 
-	Notes: Homepage is completed but session is not yet implemented
 
-	Not scrollable
-	Must be scrollable
+Homepage without Login
+	Notes:
+
+	all buttons must direct to Login/Signup Modal
+
+Homepage with Login 
+
+	Notes: 
+	Done
+	Homepage is completed and can now login 
+	Navbar and links is now working
+
+	Pending:
+	need validation
+
+
+session
+
+Homepage - ok
+Product Page - ok
+
+	
 
 Products Page
 	
-	Note: Products can View/display
+	Note: 
+	Products can View/display
+	Search bar is now working / can search
 
-	Search bar still not working / can't search
+
 	
-	Filter Still not working (optional)
-
-
 	Cart not yet created
-	Purchase function not yet created
+	Select & Purchase function not yet created (modal way) or 
+	Select & Purchase function not yet created (separate page)
+	Filter Search  not working (optional)
 	Customer Delivery Details
 	Payments
 		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Admin side

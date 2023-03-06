@@ -36,9 +36,11 @@ a{
 	text-decoration: none;
 	color: #ad1845;
 	font-weight: 600;
+	padding: 5px;
 }
 a:hover {
-  background-color: yellow;
+  background: #ad1845;
+  color: white;
 }
 p{
 	color: #555;
@@ -358,3 +360,5 @@ Form a{
     font-size: 1.8rem;
     cursor: pointer;
 }
+
+
