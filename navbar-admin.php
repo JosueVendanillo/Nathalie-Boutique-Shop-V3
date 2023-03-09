@@ -98,7 +98,7 @@ ul{
 <nav class="navbar navbar-expand-lg navbar-light bg-info bg-gradient fixed-top sticky-top">
    
   <div class="mx-auto d-block py-3">
-    <a class="navbar-brand text-center text-black justify-content-center" href="inventory.php">Admin Dashboard - Nathalie's Boutique Inventory</a>
+    <a class="navbar-brand text-center text-black justify-content-center" href="admin-dashboard.php">Admin Dashboard - Nathalie's Boutique Inventory</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

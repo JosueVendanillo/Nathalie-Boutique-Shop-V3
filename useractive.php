@@ -8,6 +8,16 @@ session_start();
     $lname = $_SESSION['lname'];
     $email = $_SESSION['email'];
     $address = $_SESSION['address'];
+
+
+
+    
+
+    // $usercart = $_SESSION['cart'];
+
+
+
+
     
 
     if(!isset($userid)){

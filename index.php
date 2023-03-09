@@ -225,11 +225,22 @@
 
 <body>
 
+
+
+
+
+
+
+
+
+
 <!-- Modal Here -->
 <div id="myModal" class="modal">
+    
 
   <!-- Modal content -->
   <div class="modal-content">
+
 
     <span class="close">&times;</span>
 	<!-- Modal body -->
@@ -368,9 +379,60 @@
 <header class="">
     <div class="navbar px-5 " >
         <div class="logo">
-            <a href="main.html"><img src="./assets/img/products/logo.jpg" width="180px"> </a>
+            <a href="index.php"><img src="./assets/img/products/logo.jpg" width="180px"> </a>
         </div>
-       
+        
+        <div style="
+position: absolute;
+left:0;
+right: 0;
+margin-left: 40%;
+margin-right: 0; 
+width: 25%;">
+            <!-- Alert for sign up-->
+<?php
+                if(isset($_GET['msg'])){
+                    $msg = $_GET['msg'];
+                    $countdown = 5; // Countdown time in seconds
+
+                    if($msg === 'Incorrect Username or Password'){
+
+                        echo '
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            ' . $msg . '
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div id="countdown" style="font-weight: bold;"></div>
+                          </div>
+                          <script>
+                            var countdown = ' . $countdown . ';
+                            var countdownElem = document.getElementById("countdown");
+                        
+                            var intervalId = setInterval(function() {
+                              countdown--;
+                              countdownElem.innerHTML = "This alert will disappear in " + countdown + " seconds.";
+                        
+                              if (countdown == 0) {
+                                clearInterval(intervalId);
+                                removeAlert();
+                              }
+                            }, 1000);
+                        
+                            function removeAlert() {
+                              document.querySelector(\'.alert\').remove();
+                              window.location.href=\'http://localhost:8080/nathalie%20shop%20V3/index-with-session.php\';
+                            }
+                            
+                            document.querySelector(\'.btn-close\').addEventListener("click", function() {
+                              clearInterval(intervalId);
+                              removeAlert();
+                            });
+                          </script>
+                        ';
+                    } 
+                }
+        ?>
+
+        </div>
         
         <nav>
             <ul >
@@ -384,7 +446,7 @@
                 </li>
             </ul>
         </nav>
-        <a href="index.html"><img src="./assets/img/products/cart.png" width="30px" height="30px"></a>
+        <a href="index.php"><img src="./assets/img/products/cart.png" width="30px" height="30px"></a>
     </div>
 </header>
 

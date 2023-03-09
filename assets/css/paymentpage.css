@@ -1,0 +1,29 @@
+html,body{
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+}
+.payment-header-container{
+    background-color: #ffd6ff;
+    margin: 10px 0px 0px 0px;
+    /* display: flex; */
+    border-radius: 5px;
+    padding: 10px;
+}
+
+
+
+.cart-checkout-container{
+  /* position: relative; */
+  height: 10%;
+}
+
+
+.box1, .box2{
+    background: whitesmoke;
+}
+
+
+
+
