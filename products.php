@@ -34,21 +34,7 @@
 
 <body>
 
-<div id="productModal" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content">
-
-    <span class="close">&times;</span>
-	<!-- Modal body -->
-		<div class="d-flex  justify-content-center">
-
-
-		</div>
-
-  </div>
-
-</div>
 	
 
 
@@ -92,10 +78,10 @@
     </div>
 </header>
 
-
+<!-- main content -->
 <div class="d-flex flex-row fixed " style="margin:5% 2% 6% 2%">
 
-
+<!-- box 1 -->
   <div class="box1  p-3 " style="flex: 0 0 75%;">
 
                       <!-- Content here -->
@@ -109,66 +95,71 @@
   
   
               <div class="product-header-container" >
-                  <div class="product-page"  >
-                    <?php 
-                      // Get the search keyword if submitted
-                      $search = isset($_GET['search']) ? $_GET['search'] : '';
-              
-                      // Get the current page number from the query string
-                      $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-                      // Number of products per page
-                      $limit = 11;
-                      // Calculate the offset based on the page number and limit
-                      $offset = ($page - 1) * $limit;
-              
-                      // Build the query based on the search keyword
-                      $query = "SELECT * FROM products";
-                      if (!empty($search)) {
-                      $query .= " WHERE product_name LIKE '%$search%'";
-                      }
-                      $query .= " LIMIT $limit OFFSET $offset";
-              
-                      $result = mysqli_query($conn,$query);
-                      
-                      while($row = mysqli_fetch_assoc($result)){
-                        $productId = $row['product_id'];
-                        $productName = $row['product_name'];
-                        $productPrice = $row['product_price'];
-                        $productQty = $row['product_quantity'];
-                        $productDetails = $row['product_details'];   
-                        $productImg = $row['product_images'];  
-              
-              
-                      
-                    ?>
-                    <!-- Show Products here-->
-                    
-                    <div class="product-box" >
-                      <form method="POST" action="products.php?id=<?=$row['product_id'] ?> ">
-                        <img src="uploads/<?= $productImg ?>" class="product-img">
-                        <h2 class="product-title"><?php echo $productName?></h2>
-                        <span class="price"><strong>₱</strong><?php echo $productPrice?></span>
-                        <span class="stocks"><strong>Stock:</strong><?php echo $productQty?></span>
-                        <!-- <input type="text"> -->
-                        <input type="hidden" name="name" value="<?php echo $productName?>">
-                        <input type="hidden" name="price" value="<?php echo $productPrice?>">
-                        <!-- <div class="product-quantity-container" >
-                          <input type="number" name="quantity" value="1">
-                        </div> -->
-                        <div class="product-quantity-container " >
-                          <button type="button" class="quantity-button minus-button">-</button>
-                          <input type="number" name="quantity" value="1" min="1">
-                          <button type="button" class="quantity-button plus-button">+</button>
-                      </div>
-                        <!-- <div class="rating">
-                        </div> -->
-                        <input type="submit" class=" btn-success btn-block" name="add-cart-button"value="Add to Cart">
-                    </div>
-                    </form>
-              
-                    <?php } ?>
-                
-                  </div>
+              <div class="product-page">
+  <?php 
+    // Get the search keyword if submitted
+    $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+    // Get the current page number from the query string
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    // Number of products per page
+    $limit = 11;
+    // Calculate the offset based on the page number and limit
+    $offset = ($page - 1) * $limit;
+
+    // Build the query based on the search keyword
+    $query = "SELECT * FROM products";
+    if (!empty($search)) {
+      $query .= " WHERE product_name LIKE '%$search%'";
+    }
+    $query .= " LIMIT $limit OFFSET $offset";
+
+    $result = mysqli_query($conn,$query);
+      
+    while($row = mysqli_fetch_assoc($result)){
+      $productId = $row['product_id'];
+      $productName = $row['product_name'];
+      $productPrice = $row['product_price'];
+      $productQty = $row['product_quantity'];
+      $productDetails = $row['product_details'];   
+      $productImg = $row['product_images'];  
+  ?> 
+
+  <!-- Show Products here-->
+  <div class="product-box">
+    <form method="POST" action="products.php?id=<?=$row['product_id'] ?> ">
+      <img src="uploads/<?= $productImg ?>" class="product-img" style="display: block; margin: auto;">
+      <h2 class="product-title"><?php echo $productName?></h2>
+
+      <div style="overflow: hidden;">
+          <span class="price" style="display: inline-block; float: left;"><strong>₱</strong><?php echo $productPrice?></span>
+
+          <?php if ($productQty == 0) { ?>
+            <span class="out-of-stock" style="display: inline-block; float: right;">Out of Stock</span>
+          <?php } else { ?>
+            <span class="stocks" style="display: inline-block; float: right;"><strong>Stock:</strong><?php echo $productQty?></span>
+          <?php } ?>
+      </div>
+     
+      <input type="hidden" name="name" value="<?php echo $productName?>">
+      <input type="hidden" name="price" value="<?php echo $productPrice?>">
+  
+      <div class="product-quantity-container">
+        <button type="button" class="quantity-button minus-button" <?php if ($productQty == 0) { ?>disabled style="background-color: gray;"<?php } ?>>-</button>
+        <input type="number" name="quantity" value="1" min="1" max="<?php echo $productQty ?>" <?php if ($productQty == 0) { ?>disabled style="background-color: gray;"<?php } ?>>
+        <button type="button" class="quantity-button plus-button" <?php if ($productQty == 0) { ?>disabled style="background-color: gray;"<?php } ?>>+</button>
+      </div>
+      
+      <?php if ($productQty == 0) { ?>
+        <input type="submit" class=" btn-secondary " value="Out of Stock" disabled>
+      <?php } else { ?>
+        <input type="submit" class=" btn-success " name="add-cart-button" value="Add to Cart">
+      <?php } ?>
+    </form>
+  </div>
+  <?php } ?>
+</div>
+
               </div>
 
                 <div class="pagination-container" >
@@ -200,228 +191,177 @@
                     </div>
                   </div>
   </div>
+  <!-- end of box 1 -->
 
-  <?php 
-  
-  if(isset($_POST['add-cart-button'])){
+                              <?php 
+                              
+                              if(isset($_POST['add-cart-button'])){
 
-    if(isset($_SESSION['cart'])){
+                                if(isset($_SESSION['cart'])){
 
-        $session_array_id = array_column( $_SESSION['cart'],'id');
+                                    $session_array_id = array_column( $_SESSION['cart'],'id');
 
-          if(!in_array($_GET['id'],$session_array_id)){
+                                      if(!in_array($_GET['id'],$session_array_id)){
 
-            $session_array = array(
-              'id' => $_GET['id'],
-              'name' => $_POST['name'],
-              'price' => $_POST['price'],
-              'quantity' => $_POST['quantity'],
-            );
-            $_SESSION['cart'][] = $session_array;
-          }
+                                        $session_array = array(
+                                          'id' => $_GET['id'],
+                                          'name' => $_POST['name'],
+                                          'price' => $_POST['price'],
+                                          'quantity' => $_POST['quantity'],
+                                        );
+                                        $_SESSION['cart'][] = $session_array;
+                                      }
 
-    }else{
+                                }else{
 
-      $session_array = array(
-        'id' => $_GET['id'],
-        'name' => $_POST['name'],
-        'price' => $_POST['price'],
-        'quantity' => $_POST['quantity'],
-      );
+                                  $session_array = array(
+                                    'id' => $_GET['id'],
+                                    'name' => $_POST['name'],
+                                    'price' => $_POST['price'],
+                                    'quantity' => $_POST['quantity'],
+                                  );
 
-      $_SESSION['cart'] = array($session_array);
+                                  $_SESSION['cart'] = array($session_array);
 
-    }
+                                }
 
-  }
-  
-  ?>
+                              }
+                              
+                              ?>
+
+                <!-- box 2 -->
+                <div class="box2  p-3  " style="flex: 0 0 27%;">
+
+                                <div class="cart-title-container">
+                                  <h4> Cart</h4>
+                                </div>
+                                  <div class="cart-body">
+                                    <!-- Cart Contents -->
+                                    <table class="table table-bordered table striped">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">Item</th>
+                                          <th scope="col">Price</th>
+                                          <th scope="col">Qty</th>
+                                          <th scope="col">Subtotal</th>
+                                          <th scope="col">Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+
+                                        <?php
+
+                                        $output = '';
+                                        $total_price = 0;
+                                        $isArrayEmpty = true;  // if true the Checkout button will be disabled. if not the button will enabled
+                                        $arrayCounter = 0; // of the counter is 0 the remove all button will be hidden, if > 1 the button will show
+                                      
+
+                                        if (!empty($_SESSION['cart'])) {
+                                          foreach ($_SESSION['cart'] as $key => $value) {
+                                            if ($value['price'] && $value['quantity']) {
+                                              $subtotal = $value['price'] * $value['quantity'];
+                                              $total_price += $subtotal;
+                                              $arrayCounter++;
+                                              
+                                              $output .= '
+                                                <tr>
+                                                  <th scope="row">' . $value['id'] . '</th>
+                                                  <td>' . $value['name'] . '</td>
+                                                  <td>' . $value['price'] . '</td>
+                                                  <td>' . $value['quantity'] . '</td>
+                                                  <td>' . '₱' . number_format($subtotal, 2, '.') . '</td>
+                                                  <td>
+                                                    <a class="remove_button text-white" href="products.php?remove='.$value['id'].'">
+                                                      Remove
+                                                    </a>
+                                                  </td>
+                                                </tr>
+                                              ';
+                                            }
+                                          }
+                                          $isArrayEmpty = false; // array is not empty now
+                                            echo $output;
+                                        } 
+
+                                              if(isset($_GET['remove'])){
+                                                    $removed = false;
+                                                      if(isset($_GET['remove'])){
+
+                                                        foreach($_SESSION['cart'] as $key => $value){
+                                                    
+                                                            if($value['id'] == $_GET['remove']){
+                                                                unset($_SESSION['cart'][$key]);
+                                                                $removed = true;
+                                                            }
+                                                        }
+                                                      }
+
+                                                      if($_GET['remove'] == 'remove_all_items'){
+                                                      
+                                                          if (isset($_GET['remove']) == 'remove_all_items') {
+                                                                unset($_SESSION['cart']);
+                                                                $removed = true;
+                                                              } 
+                                                      }
+
+                                                      if($removed){
+                                                          echo '<script>location.href = \'products.php\';</script>';
+                                                      }
+                                              }
+                                        ?>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <!-- end of cart body -->
 
 
+                <div class="pt-4">
+                  <?php 
+                    if($arrayCounter > 1){
+                      echo '
+                                <a href="products.php?remove=remove_all_items" class="remove_button text-white" >
+                                    Remove All
+                                </a>
+                            ';
+                    }
+                  ?>
 
-
-
-<div class="box2  p-3  " style="flex: 0 0 27%;">
-  <form>
-
-                <div class="cart-title-container">
-                  <h4> Cart</h4>
                 </div>
-  <div class="cart-body">
-    <!-- Cart Contents -->
-    <table class="table table-bordered table striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Item</th>
-          <th scope="col">Price</th>
-          <th scope="col">Qty</th>
-          <th scope="col">Subtotal</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
+                            <?php
+                                        
+                                        $isEmptyAddress = empty($_POST['address']);
+                                        $isEmptyPhone = empty($_POST['phone']);
+                                        
+                              ?>
+                          <div class="checkout-container d-flex justify-content-between align-items-center">
+                              <div class="total-price d-flex flex-column">
+                                  <strong>Total price:</strong> <?php echo '₱' . number_format($total_price, 2); ?>
+                              </div>
+                                  
+                                <?php
 
-        <?php
-
-        $output = '';
-        $total_price = 0;
-        $isArrayEmpty = true; 
-        $arrayCounter = 0;
-      
-
-        if (!empty($_SESSION['cart'])) {
-          foreach ($_SESSION['cart'] as $key => $value) {
-            if ($value['price'] && $value['quantity']) {
-              $subtotal = $value['price'] * $value['quantity'];
-              $total_price += $subtotal;
-              $arrayCounter++;
-              
-
-              $output .= '
-                <tr>
-                  <th scope="row">' . $value['id'] . '</th>
-                  <td>' . $value['name'] . '</td>
-                  <td>' . $value['price'] . '</td>
-                  <td>' . $value['quantity'] . '</td>
-                  <td>' . '₱' . number_format($subtotal, 2, '.') . '</td>
-                  <td>
-
-                  <a class="remove_button text-white" href="products.php?remove='.$value['id'].'">
-                    Remove
-                  </a>
-                   
-                  </td>
-                </tr>
-              ';
-
-              
-            }
-          }
-          $isArrayEmpty = false;
-          
-          echo $output;
-
-    
-        } else {
-          // echo 'cart is empty';
-        }
-
-        if(isset($_GET['remove'])){
-
-              $removed = false;
-                if(isset($_GET['remove'])){
-
-                  foreach($_SESSION['cart'] as $key => $value){
-              
-                      if($value['id'] == $_GET['remove']){
-                          unset($_SESSION['cart'][$key]);
-                          $removed = true;
-                      }
-                  }
-                }
-
-                if($_GET['remove'] == 'remove_all_items'){
-                 
-                     if (isset($_GET['remove']) == 'remove_all_items') {
-                          unset($_SESSION['cart']);
-                          $removed = true;
-                        } 
-
-                }
-              if($removed){
-                  echo '<script>location.href = \'products.php\';</script>';
-              }
-        }
-        ?>
-      </tbody>
-    </table>
-  </div>
-</form>
+                                  if($isArrayEmpty){
+                                    
+                                    echo '<button type="button" class="btn-secondary" disabled aria-disabled="true">Checkout</button>';
+                                  }else{
+                                    echo '<a href="./checkout-page.php"><button type="button" class="remove_button btn-primary" name="checkout"">Checkout</button></a>';
+                                  }
+                  
+                                  ?>
 
 
+                                
+                            </div>
 
-<div class="pt-4">
-  <?php 
-    if($arrayCounter > 1){
-      echo '
-                <a href="products.php?remove=remove_all_items" class="remove_button text-white" >
-                    Remove All
-                </a>
-            ';
-
-    }
-  ?>
-
+                                  
+                </div>
+                <!-- end of box 2 -->
 </div>
+<!-- end of main content -->
 
-                  <?php
-                  
-                  $isEmptyAddress = empty($_POST['address']);
-                  $isEmptyPhone = empty($_POST['phone']);
-                  
-                  
-
-                
-                  
-                  ?>
-
-
-
-                <div class="delivery-address-container mt-3">
-                  <h5>Delivery Address</h5>
-                 <form action="checkout-page.php" method="POST">
-
-                   <div class="form-group">
-                     <label for="address">Address</label>
-                     <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="phone">Contact Number</label>
-                      <input type="text" class="form-control" id="phone" name="phone" required>
-                    </div>
-                    <div class="d-flex flex-row justify-content-between ">
-                      <?php   
-                      if( $isEmptyAddress || $isEmptyPhone){
-                        echo '<span style="color:red;word-wrap:break-word;">
-                        Address and contact number cannot be empty.
-                        </span>
-                        ';
-                      }
-                      ?>
-                        <!-- <button type="submit" class="btn-success">Confirm</button> -->
-
-                    </div>
-                  
-                  <div class="checkout-container d-flex justify-content-between align-items-center">
-                    <div class="total-price d-flex flex-column">
-                      <strong>Total price:</strong> <?php echo '₱' . number_format($total_price, 2); ?>
-                    </div>
-                    
-                    <?php
-                  
-                  
-                  if($isArrayEmpty){
-                    
-                    echo '<button type="button" class="btn-secondary" disabled aria-disabled="true">Checkout</button>';
-                  }else{
-                    echo '<button type="submit" class="remove_button btn-primary" name="checkout"">Checkout</button>';
-                  }
-                  
-                  
-                  
-                  ?>
-
-
-                  </form>
-                  </div>
-
-                  
-                </div>
-    </div>
-
-
-    <!-- onclick="window.location.href = \'checkout-page.php\';" -->
+  
 
     
 
@@ -444,6 +384,9 @@ quantityContainers.forEach((quantityContainer, index) => {
   const minusButton = quantityContainer.querySelector('.minus-button');
   const plusButton = quantityContainer.querySelector('.plus-button');
 
+  // Get the current product quantity
+  const maxQuantity = parseInt(quantityInputs[index].getAttribute('max'));
+
   // Add click event listeners to the buttons
   minusButton.addEventListener('click', () => {
     // Decrease the quantity by 1, but do not go below 1
@@ -451,8 +394,16 @@ quantityContainers.forEach((quantityContainer, index) => {
   });
 
   plusButton.addEventListener('click', () => {
-    // Increase the quantity by 1
-    quantityInputs[index].value = parseInt(quantityInputs[index].value) + 1;
+    // Increase the quantity by 1, but do not exceed the maximum quantity
+    quantityInputs[index].value = Math.min(parseInt(quantityInputs[index].value) + 1, maxQuantity);
+  });
+
+  // Add input event listener to the input field
+  quantityInputs[index].addEventListener('input', () => {
+    // Update the value if it exceeds the maximum quantity
+    if (parseInt(quantityInputs[index].value) > maxQuantity) {
+      quantityInputs[index].value = maxQuantity;
+    }
   });
 });
 </script>

@@ -10,15 +10,9 @@ session_start();
     $address = $_SESSION['address'];
 
 
-
-    
-
     // $usercart = $_SESSION['cart'];
 
 
-
-
-    
 
     if(!isset($userid)){
         header("Location: index.php");

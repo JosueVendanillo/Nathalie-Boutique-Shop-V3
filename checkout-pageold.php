@@ -1,19 +1,17 @@
 <?php
 	include 'useractive.php';
-
 ?>
-
 <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Products - Nathalie's Boutique Shop</title>
+        <title>Checkout - Nathalie's Boutique Shop</title>
 
         
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'> -->
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -66,8 +64,6 @@
     color: black;
 }
 </style>
-
-
 <body>
 
 <div id="productModal" class="modal">
@@ -85,8 +81,6 @@
   </div>
 
 </div>
-	
-
 
 <header class="">
     <div class="navbar px-5">
@@ -128,7 +122,8 @@
     </div>
 </header>
 
-<div  style="margin:7% 2% 5% 2%;">
+
+<div class="" style="margin:7% 2% 5% 2%;">
 
                         <!-- Content here -->
                         <div class="payment-header-container" >
@@ -159,6 +154,8 @@
 
                                                                         $row = mysqli_fetch_assoc($result);
                                                                     ?>
+
+
 
                                                                     <div class="tab-content">
                                                                         <div class="tab-pane fade show active" id="cash-on-delivery">
@@ -196,7 +193,7 @@
                                                                                             id="address" 
                                                                                             name="address" 
                                                                                             placeholder="House No. / Blk & Lot Street/ Subdivision or Barangay / City / Province/ Country / Postal Code" 
-                                                                                            rows="3" style="resize: none;" ><?= $row['user_address'] ?></textarea>
+                                                                                            rows="3" style="resize: none;" ><?= $address ?></textarea>
                                                                                            
                                                                                         </div>
                                                                                         <div>
@@ -213,8 +210,6 @@
                                                                                             </div>
 
                                                                                         </div>
-                                                                            
-
                                                                                 </div>
                                                                                 <!-- Cash on delivery -->
                                                                         </div>
@@ -224,14 +219,11 @@
                                                                         <!-- <p>This is the BANK TRANSFER/GCASH/PAYMAYA tab content.</p> -->
                                                                         Coming soon...
                                                                         </div>
-                                                                        <!-- end of tab pane 2 -->
-                                                                       
+                                                                        <!-- end of tab pane 2 -->                
                                                                     </div>
                                                                     <!-- end of tab content -->
-
                                                 </div>
                                         </div>
-
                                          <!-- box2 -->
                                          <div class="box2 p-3 " style="flex: 0 0 50%;">
                                         
@@ -273,9 +265,7 @@
                                                                                     ?>
                                                                                 </tbody>
                                                                             </table>
-
                                                                     </div>
-                                                                    
                                                                     <!-- <div class="container" >  -->
                                                                                 <div class="border border-secondary border-3">
                                                                                     <div>
@@ -288,7 +278,6 @@
                                                                                         <span id="outputAddress"></span>
                                                                                     </div>
                                                                                 </div>
-
                                                                                     <div class="d-flex flex-col justify-content-end mt-5">
                                                                                         <div class="flex-col">
                                                                                             <?php 
@@ -311,16 +300,13 @@
                                                                                     </div>
                                                                     <!-- </div> -->
                                                         </div>
-
                                                 <!--End of cart checkout container  -->
                                         </div>
                                         <!-- End of payment body container -->
-
                                 </div>
                             <!-- End of Box1 -->
                                     </div>
-</div>
-
+</div>   
 <!-- footer -->
 <!-- <?php
 include('./includes/scripts.php');
