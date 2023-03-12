@@ -111,3 +111,14 @@ Delete / remove Product
     Code also fixed in proper and more secure way
 
 	Prompt No result found if item is not existing
+
+
+
+Password in login
+
+Profile 
+
+Transaction display in admin dashboard
+
+
+Warning: Undefined array key "user_admin" in C:\xampp\htdocs\Nathalie Shop V3\admin\admin_session.php on line 5

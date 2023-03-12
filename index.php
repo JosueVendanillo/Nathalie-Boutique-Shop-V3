@@ -1,11 +1,6 @@
 <?php
 
- include './db/database.php';
-
-// include 'useractive.php';
-
-// Retrieve session variables
-// $username = $_SESSION['username'];
+include './db/database.php';
 
 ?>
 
@@ -34,7 +29,8 @@
                 
                 
                 // encrypt the password for protection if someone viewed the database
-                $password_hash = password_hash($_POST['registerPassword'],PASSWORD_DEFAULT);
+                // $password_hash = password_hash($_POST['registerPassword'],PASSWORD_DEFAULT);
+                $password_hash = $_POST['registerPassword'];
                 
                 // Insert new user
                 $stmt = $conn->prepare("INSERT INTO user_accounts (`user_name`,`user_password`,`first_name`,`last_name`,`user_email`,`user_address`) 
@@ -83,7 +79,6 @@
                 $_SESSION['lname']      = $row['last_name'];
                 $_SESSION['email']      = $row['user_email'];
                 $_SESSION['address']    = $row['user_address'];
-
 
 
                 // Redirect to home page or dashboard

@@ -1,5 +1,4 @@
 <?php 
-
 $mysqlusername="root";
 $mysqlpassword="Password123!";
 $mysqlhostname="localhost";
@@ -14,4 +13,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
 
+
+  
+
 ?>
+
+
