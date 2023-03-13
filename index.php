@@ -1,7 +1,5 @@
 <?php
-
 include './db/database.php';
-
 ?>
 
 <!-- signup -->
@@ -30,12 +28,12 @@ include './db/database.php';
                 
                 // encrypt the password for protection if someone viewed the database
                 // $password_hash = password_hash($_POST['registerPassword'],PASSWORD_DEFAULT);
-                $password_hash = $_POST['registerPassword'];
+                // $password_hash = $_POST['registerPassword'];
                 
                 // Insert new user
                 $stmt = $conn->prepare("INSERT INTO user_accounts (`user_name`,`user_password`,`first_name`,`last_name`,`user_email`,`user_address`) 
                 VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("ssssss", $username, $password_hash, $firstname, $lastname, $email, $address);
+                $stmt->bind_param("ssssss", $username, $password, $firstname, $lastname, $email, $address);
                 $stmt->execute();
 
                 if ($stmt->affected_rows > 0) {
@@ -50,89 +48,90 @@ include './db/database.php';
 
         <!-- Login -->
             <?php
-           if (isset($_POST['login'])) {
-            $username = mysqli_real_escape_string($conn,$_POST['loginUsername']);
-            $password = mysqli_real_escape_string($conn,$_POST['loginPassword']);
-            $remember_me = isset($_POST['remember_me']);
-        
-            // Validate username and password
-            $query = "SELECT * FROM user_accounts WHERE user_name = '$username' AND user_password = '$password'";
-            $result = mysqli_query($conn, $query);
-            $row = mysqli_fetch_assoc($result);
-        
-            if (mysqli_num_rows($result) == 1) {
-                // User has provided valid credentials
-        
-                // Set cookie if "Remember me" is checked
-                if ($remember_me) {
-                    setcookie('username', $username, time() + (3 * 60)); // Expires in 3 minutes
-                    setcookie('password', $password, time() + (3 * 60)); // Expires in 3 minutes
-                }
-
-                // Redirect to home page or dashboard
-
-                session_start();
-                // Set session variables
-                $_SESSION['user_id']    = $row['user_id'];
-                $_SESSION['username']   = $row['user_name'];
-                $_SESSION['fname']      = $row['first_name'];
-                $_SESSION['lname']      = $row['last_name'];
-                $_SESSION['email']      = $row['user_email'];
-                $_SESSION['address']    = $row['user_address'];
-
-
-                // Redirect to home page or dashboard
-                header("Location: index-with-session.php");
-                exit();
-
-            } else {
-                // User has provided invalid credentials
-                // ...
-
-                header("Location: index.php?msg=Incorrect Username or Password");
-                exit();
-            }
-        
-            // Close the database connection
-            mysqli_close($conn);
-        }
-        
-        if (isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
-            $username = $_COOKIE['username'];
-            $password = $_COOKIE['password'];
-        
-            // Connect to the database
-            // $conn = mysqli_connect($host, $user, $pass, $db);
-        
-            // Validate username and password
-            $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-            $result = mysqli_query($conn, $query);
-        
-            if (mysqli_num_rows($result) == 1) {
-                // User has valid cookies and is authenticated
-        
-                // Redirect to home page or dashboard
-
-                // Start session
-                session_start();
-                // Set session variables
-                $_SESSION['user_id']    = $row['user_id'];
-                $_SESSION['username']   = $row['user_name'];
-                
-                $_SESSION['fname']      = $row['first_name'];
-                $_SESSION['lname']      = $row['last_name'];
-                $_SESSION['email']      = $row['user_email'];
-                $_SESSION['address']    = $row['user_address'];
-
-
-                // Redirect to home page or dashboard
-                header("Location: index-with-session.php");
-                exit();
-            }
-        
-            // Close the database connection
-            mysqli_close($conn);
-        }
+         
+            if (isset($_POST['login'])) {
+             $username = mysqli_real_escape_string($conn,$_POST['loginUsername']);
+             $password = mysqli_real_escape_string($conn,$_POST['loginPassword']);
+             $remember_me = isset($_POST['remember_me']);
+         
+             // Validate username and password
+             $query = "SELECT * FROM user_accounts WHERE user_name = '$username' AND user_password = '$password'";
+             $result = mysqli_query($conn, $query);
+             $row = mysqli_fetch_assoc($result);
+         
+             if (mysqli_num_rows($result) == 1) {
+                 // User has provided valid credentials
+         
+                 // Set cookie if "Remember me" is checked
+                 if ($remember_me) {
+                     setcookie('username', $username, time() + (3 * 60)); // Expires in 3 minutes
+                     setcookie('password', $password, time() + (3 * 60)); // Expires in 3 minutes
+                 }
+ 
+                 // Redirect to home page or dashboard
+ 
+                 session_start();
+                 // Set session variables
+                 $_SESSION['user_id']    = $row['user_id'];
+                 $_SESSION['username']   = $row['user_name'];
+                 $_SESSION['fname']      = $row['first_name'];
+                 $_SESSION['lname']      = $row['last_name'];
+                 $_SESSION['email']      = $row['user_email'];
+                 $_SESSION['address']    = $row['user_address'];
+ 
+ 
+                 // Redirect to home page or dashboard
+                 header("Location: index-with-session.php");
+                 exit();
+ 
+             } else {
+                 // User has provided invalid credentials
+                 // ...
+ 
+                 header("Location: index.php?msg=Incorrect Username or Password");
+                 exit();
+             }
+         
+             // Close the database connection
+             mysqli_close($conn);
+         }
+         
+         if (isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
+             $username = $_COOKIE['username'];
+             $password = $_COOKIE['password'];
+         
+             // Connect to the database
+             // $conn = mysqli_connect($host, $user, $pass, $db);
+         
+             // Validate username and password
+             $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+             $result = mysqli_query($conn, $query);
+         
+             if (mysqli_num_rows($result) == 1) {
+                 // User has valid cookies and is authenticated
+         
+                 // Redirect to home page or dashboard
+ 
+                 // Start session
+                 session_start();
+                 // Set session variables
+                 $_SESSION['user_id']    = $row['user_id'];
+                 $_SESSION['username']   = $row['user_name'];
+                 
+                 $_SESSION['fname']      = $row['first_name'];
+                 $_SESSION['lname']      = $row['last_name'];
+                 $_SESSION['email']      = $row['user_email'];
+                 $_SESSION['address']    = $row['user_address'];
+ 
+ 
+                 // Redirect to home page or dashboard
+                 header("Location: index-with-session.php");
+                 exit();
+             }
+         
+             // Close the database connection
+             mysqli_close($conn);
+         }
         
             ?>
 
@@ -187,46 +186,79 @@ include './db/database.php';
 
 </head>
 
-<style>
 
-			/* .dropdown {
-				position: relative;
-				display: inline-block;
-			}
-
-			.dropdown-content {
-				background:gray;
-				display: none;
-				position: absolute;
-				z-index: 1;
-			}
-
-			.dropdown:hover .dropdown-content {
-				display: block;
-			}
-
-			.dropdown-content a {
-				color: #000;
-				padding: 12px 16px;
-				text-decoration: none;
-				display: block;
-			}
-
-			.dropdown-content a:hover {
-				background-color: #f1f1f1;
-			}
-			*/
-</style>
 
 <body>
 
 
+<div style="position: absolute;left:0;right: 0;margin-left: 40%;margin-right: 0; width: 25%;z-index:1;">
+            <!-- Alert for sign up-->
+            <?php
+                if(isset($_GET['msg'])){
+                    $msg = $_GET['msg'];
+                    $countdown = 5; // Countdown time in seconds
+                    $alertType = '';
+                    $alertText = '';
 
+                    switch($msg){
+                        case 'username_exists':
+                            $alertType = 'warning';
+                            $alertText = 'Username or email already exists';
+                            break;
+                        case 'account_created':
+                            $alertType = 'success';
+                            $alertText = 'Customer Account created sucessfully!';
+                            break;
+                        case 'incorrect_password':
+                            $alertType = 'danger';
+                            $alertText = 'Incorrect password';
+                            break;
+                        case 'user_not_found':
+                            $alertType = 'danger';
+                            $alertText = 'User not found';
+                            break;
+                        default:
+                            // Unknown message, do nothing
+                            break;
+                    }
 
+                    if($alertType !== ''){
+                        echo '
+                        <div class="alert alert-' . $alertType . ' alert-dismissible fade show" role="alert">
+                            ' . $alertText . '
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <<div id="countdown" style="font-weight: bold;"></div>
+                        </div>
+                        <script>
+                            var countdown = ' . $countdown . ';
+                            var countdownElem = document.getElementById("countdown");
+                        
+                            var intervalId = setInterval(function() {
+                                countdown--;
+                                countdownElem.innerHTML = "This alert will disappear in " + countdown + " seconds.";
+                        
+                                if (countdown == 0) {
+                                    clearInterval(intervalId);
+                                    removeAlert();
+                                }
+                            }, 1000);
+                        
+                            function removeAlert() {
+                                document.querySelector(\'.alert\').remove();
+                                window.location.href=\'http://localhost:8080/nathalie%20shop%20V3/index.php\';
+                            }
+                            
+                            document.querySelector(\'.btn-close\').addEventListener("click", function() {
+                                clearInterval(intervalId);
+                                removeAlert();
+                            });
+                        </script>
+                        ';
+                    }
+                }
+                ?>
 
-
-
-
+        </div>
 
 
 <!-- Modal Here -->
@@ -369,65 +401,13 @@ include './db/database.php';
   <!--End of  Modal  -->
 
 
-
-
 <header class="">
     <div class="navbar px-5 " >
         <div class="logo">
             <a href="index.php"><img src="./assets/img/products/logo.jpg" width="180px"> </a>
         </div>
         
-        <div style="
-position: absolute;
-left:0;
-right: 0;
-margin-left: 40%;
-margin-right: 0; 
-width: 25%;">
-            <!-- Alert for sign up-->
-<?php
-                if(isset($_GET['msg'])){
-                    $msg = $_GET['msg'];
-                    $countdown = 5; // Countdown time in seconds
-
-                    if($msg === 'Incorrect Username or Password'){
-
-                        echo '
-                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            ' . $msg . '
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            <div id="countdown" style="font-weight: bold;"></div>
-                          </div>
-                          <script>
-                            var countdown = ' . $countdown . ';
-                            var countdownElem = document.getElementById("countdown");
-                        
-                            var intervalId = setInterval(function() {
-                              countdown--;
-                              countdownElem.innerHTML = "This alert will disappear in " + countdown + " seconds.";
-                        
-                              if (countdown == 0) {
-                                clearInterval(intervalId);
-                                removeAlert();
-                              }
-                            }, 1000);
-                        
-                            function removeAlert() {
-                              document.querySelector(\'.alert\').remove();
-                              window.location.href=\'http://localhost:8080/nathalie%20shop%20V3/index-with-session.php\';
-                            }
-                            
-                            document.querySelector(\'.btn-close\').addEventListener("click", function() {
-                              clearInterval(intervalId);
-                              removeAlert();
-                            });
-                          </script>
-                        ';
-                    } 
-                }
-        ?>
-
-        </div>
+    
         
         <nav>
             <ul >

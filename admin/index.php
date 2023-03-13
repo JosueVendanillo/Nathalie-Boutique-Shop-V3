@@ -9,47 +9,48 @@ if (isset($_POST['login'])) {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Prepare and execute the SQL query
-    $stmt = $conn->prepare("SELECT * FROM user_accounts WHERE user_name = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
+$stmt = $conn->prepare("SELECT * FROM user_accounts WHERE user_name = ?");
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    // Check if the query returned a row
-    if ($result->num_rows == 1) {
-        // Retrieve the row from the query result
-        $row = $result->fetch_assoc();
+// Check if the query returned a row
+if ($result->num_rows == 1) {
+    // Retrieve the row from the query result
+    $row = $result->fetch_assoc();
 
-        // Verify the password
-        if (password_verify($password, $row['user_password'])) {
-            // Regenerate the session ID to prevent session fixation attacks
-            session_regenerate_id();
+    // Verify the password
+    if ($password == $row['user_password']) {
+        // Regenerate the session ID to prevent session fixation attacks
+        session_regenerate_id();
 
-            // Set session variables based on user role
-            if ($row['user_role'] == 1) {
-                echo "<script>alert('success')</script>";
-                $_SESSION['user_admin'] = $row['user_name'];
-                header("Location: dashboard.php"); 
-                // Redirect to the admin dashboard page
-                exit();
-            } else {
-                $error = "Invalid user role";
-            }
+        // Set session variables based on user role
+        if ($row['user_role'] == 1) {
+            echo "<script>alert('success')</script>";
+            $_SESSION['user_admin'] = $row['user_name'];
+            header("Location: dashboard.php"); 
+            // Redirect to the admin dashboard page
+            exit();
         } else {
-            $error = "Invalid username or password";
+            $error = "Invalid user role";
         }
     } else {
         $error = "Invalid username or password";
     }
+} else {
+    $error = "Invalid username or password";
+}
 
-    // Close the connection
-    $stmt->close();
-    $conn->close();
+// Close the connection
+$stmt->close();
+$conn->close();
 
-    // Sanitize and echo the error message
-    if (isset($error)) {
-        $sanitized_error = htmlspecialchars($error);
-        echo "<script>alert('$sanitized_error')</script>";
-    }
+// Sanitize and echo the error message
+if (isset($error)) {
+    $sanitized_error = htmlspecialchars($error);
+    echo "<script>alert('$sanitized_error')</script>";
+}
+
 }
 ?>
 

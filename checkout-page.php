@@ -114,7 +114,7 @@
                   <div class="dropdown-content">
                     <?php
                       if(isset($_SESSION['username'])) {
-                        echo '<a href="profile.php">Profile</a>';
+                        echo '<a href="userprofile.php">Profile</a>';
                         echo '<a href="logout.php">Logout</a>';
                       } 
                     ?>
@@ -153,15 +153,23 @@
                                                                     </ul>
 
                                                                     <?php 
-
+                                                                       
+                                                                        // where user_id = $id from session ===================================================
                                                                         $sql = "SELECT user_address FROM user_accounts";
                                                                         $result = mysqli_query($conn,$sql);
 
                                                                         $row = mysqli_fetch_assoc($result);
+
+                                                                        $deliveryAddress= $row['user_address']; 
+                                                                        
+                                                                        $_SESSION['address'] = $deliveryAddress; // store the current value of address to $_SESSION
+
+
                                                                     ?>
 
                                                                     <div class="tab-content">
                                                                         <div class="tab-pane fade show active" id="cash-on-delivery">
+                                                                            <?php $_SESSION['payment_method_cod'] = "CASH ON DELIVERY"; ?>
                                                                         <!-- <p>This is the Cash on Delivery tab content.</p> -->
                                                                             <div class="cash-on-delivery p-4">
                                                                                 <h2>Cash on Delivery</h2>
@@ -196,7 +204,7 @@
                                                                                             id="address" 
                                                                                             name="address" 
                                                                                             placeholder="House No. / Blk & Lot Street/ Subdivision or Barangay / City / Province/ Country / Postal Code" 
-                                                                                            rows="3" style="resize: none;" ><?= $row['user_address'] ?></textarea>
+                                                                                            rows="3" style="resize: none;" ><?= $address ?></textarea>
                                                                                            
                                                                                         </div>
                                                                                         <div>
@@ -223,6 +231,8 @@
                                                                         <div class="tab-pane fade" id="gcash-paymaya">
                                                                         <!-- <p>This is the BANK TRANSFER/GCASH/PAYMAYA tab content.</p> -->
                                                                         Coming soon...
+
+                                                                        <!-- $_SESSION['payment_method_type']; input payment tab name here -->
                                                                         </div>
                                                                         <!-- end of tab pane 2 -->
                                                                        
@@ -292,6 +302,7 @@
                                                                                     <div class="d-flex flex-col justify-content-end mt-5">
                                                                                         <div class="flex-col">
                                                                                             <?php 
+                                                                                                $_SESSION['total_price'] = $total_price;
                                                                                                 echo '<h4>Total Price: '.'₱'.number_format($total_price).' </h4>'
                                                                                             ?>
                                                                                             <div class=""></div>

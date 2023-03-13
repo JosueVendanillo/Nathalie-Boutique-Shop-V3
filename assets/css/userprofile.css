@@ -1,0 +1,84 @@
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            
+        }
+        
+        .form-wrapper {
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            padding: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-right: 40px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        input[type="text"], input[type="email"], input[type="password"], textarea {
+            border: none;
+            border-bottom: 2px solid #ccc;
+            font-size: 18px;
+            margin-bottom: 20px;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, textarea:focus {
+            outline: none;
+            border-bottom: 2px solid #6c757d;
+        }
+        
+        .avatar-wrapper {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 10px;
+            
+        }
+        
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .button-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        button {
+            background-color: #6c757d;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        button:hover {
+            background-color: #555;
+        }

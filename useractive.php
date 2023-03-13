@@ -9,6 +9,8 @@ session_start();
     $email = $_SESSION['email'];
     $address = $_SESSION['address'];
 
+    // $password = $_SESSION['password'];
+
 
  
 

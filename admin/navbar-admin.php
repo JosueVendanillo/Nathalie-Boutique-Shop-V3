@@ -3,6 +3,8 @@
 include '../admin/admin_session.php';
 
 
+$admin = $_SESSION['user_admin'];
+
 ?>
 
 
@@ -123,8 +125,9 @@ ul{
               <h4> Welcome <?= $admin ?> </h4>
         </div>
         <div class="sidebar">
-          <a href="../admin/dashboard.php">Dashboard</a>
+          <a href="dashboard.php">Dashboard</a>
           <a href="inventory.php">Inventory</a>
+          <a href="transactions.php">Transactions</a>
           <a href="#">Reports (available Soon)</a>
           <a href="logout.php">Logout</a>
         </div>

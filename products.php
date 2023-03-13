@@ -64,7 +64,7 @@
                   <div class="dropdown-content">
                     <?php
                       if(isset($_SESSION['username'])) {
-                        echo '<a href="profile.php">Profile</a>';
+                        echo '<a href="userprofile.php">Profile</a>';
                         echo '<a href="logout.php">Logout</a>';
                       } 
                     ?>
