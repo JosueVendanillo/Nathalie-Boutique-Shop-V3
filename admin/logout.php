@@ -2,7 +2,7 @@
 
    session_start();
 
-   echo '<script> alert(\'Succesfully Log out\')</script>';
+  
    
    if(session_destroy()) {
     

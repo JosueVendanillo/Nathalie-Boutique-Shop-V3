@@ -64,7 +64,15 @@ $transaction_id = $_GET['id'];
 </head>
 <body>
 
-        <?php $show_transaction = "SELECT * FROM transactions WHERE transaction_id= '$transaction_id'";
+        <?php 
+        date_default_timezone_set('Asia/Manila');
+        $currentDateTime = date('Y-m-d H:i:s');
+            // $currentDateTime = date('F j, Y, g:i a');
+   
+        
+        
+        
+        $show_transaction = "SELECT * FROM transactions WHERE transaction_id= '$transaction_id'";
             $result_transactions = mysqli_query($conn, $show_transaction);
            
 
@@ -83,7 +91,7 @@ $transaction_id = $_GET['id'];
         <div>Payment Method: <strong><?php echo $rows['payment_method']?></strong></div>
 
         <?php }?>
-        <div class="date"> Receipt Date: <?php echo date('F j, Y, g:i a'); ?></div>
+        <div class="date"> Receipt Date: <?php echo $currentDateTime; ?></div>
         <table>
             <thead>
                 <tr>
