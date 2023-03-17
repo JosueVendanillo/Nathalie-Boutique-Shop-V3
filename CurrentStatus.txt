@@ -61,64 +61,40 @@ Products Page
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Admin side
 
-need to make dynamic page for admin (navbar & Sidebar)
-
 Login with Session
-	Note:
-		Not yet created
 
-        Admin account is already created
-
-Create / Add product
-	Notes: image uploaded can't be cleared
-	Products can be add ? - done
-	When clear button is clicked all inputs has been also cleared - done 
-    image name is also displayed below the image
-
-Read / View product
-	Notes: 
-    showing of products in inventory - Done
-	After the product is successfully added, unable to refresh the page ,Url ?msg=""; needs to be cleared - Done
-	Need to limit the table, Pagination ?? - Done added Pagination
-    Search bar is also functioning
-	
-Update / Edit product
-	Notes: image uploaded can't be cleared
-	When clear button is clicked all inputs has been also cleared - done
-    image name is also displayed below the image
-    
-
-Delete / remove Product 
-
-	Note: Delete function is working properly
-
-    Code also fixed in proper and more secure way
-
-	Prompt No result found if item is not existing
+        Admin account is automatically created
 
 
 
-Password in login
-
-Profile 
-
-Transaction display in admin dashboard
 
 
-Warning: Undefined array key "user_admin" in C:\xampp\htdocs\Nathalie Shop V3\admin\admin_session.php on line 5
+Dashboard
+
+
+
+
+Inventory
+	Create / Add product
+		Notes: image uploaded can't be cleared
+		Products can be add ? - done
+		When clear button is clicked all inputs has been also cleared - done 
+		image name is also displayed below the image
+
+	Read / View product
+		Notes: 
+		showing of products in inventory - Done
+		After the product is successfully added, unable to refresh the page ,Url ?msg=""; needs to be cleared - Done
+		Need to limit the table, Pagination ?? - Done added Pagination
+		Search bar is also functioning
+		
+	Update / Edit product
+		Notes: image uploaded can't be cleared
+		When clear button is clicked all inputs has been also cleared - done
+		image name is also displayed below the image
+		
+	Delete / remove Product 
+
+Transaction History is created

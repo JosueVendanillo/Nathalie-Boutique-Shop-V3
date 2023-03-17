@@ -116,18 +116,26 @@ include 'navbar-admin.php';
                     </div>
                     <div class="col">
                         <div class="form-group mb-3">
-                            <label for="">For:</label>
+                            <label for="">Item is for:</label>
+                            <input type="radio" class="form-check-input" name="category" 
+                            id="men" value="MEN">
+                            <label for="female" class="form-input-label">Men</label>
                             
                             <input type="radio" class="form-check-input" name="category" 
-                            id="male" value="male">
-                            <label for="female" class="form-input-label">Male</label>
+                            id="women" value="WOMEN">
+                            <label for="male" class="form-input-label">Women</label>
+
+                            <input type="radio" class="form-check-input" name="category" 
+                            id="unisex" value="UNISEX">
+                            <label for="unisex" class="form-input-label">Unisex</label>
+
+
+                            <input type="radio" class="form-check-input" name="category" 
+                            id="kids" value="KIDS">
+                            <label for="kids" class="form-input-label">Kids</label>
                             
                             <input type="radio" class="form-check-input" name="category" 
-                            id="female" value="female">
-                            <label for="male" class="form-input-label">Female</label>
-                            
-                            <input type="radio" class="form-check-input" name="category" 
-                            id="both" value="both">
+                            id="both" value="BOTH">
                             <label for="both" class="form-input-label">Both</label>
                         </div>
                     </div>
