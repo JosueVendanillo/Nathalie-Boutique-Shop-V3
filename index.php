@@ -303,13 +303,13 @@ include './db/database.php';
                                             <form method="POST" action="" autocomplete="off" >
                                                     <!-- Email input -->
                                                     <div class="form-outline mb-4">
-                                                        <input type="text" id="loginUsername" class="form-control" name="loginUsername"/>
+                                                        <input type="text" id="loginUsername" class="form-control" name="loginUsername"  required/>
                                                         <label class="form-label" for="loginName">Username</label>
                                                     </div>
 
                                                     <!-- Password input -->
                                                     <div class="form-outline mb-4">
-                                                        <input type="password" id="loginPassword" class="form-control" name="loginPassword"/>
+                                                        <input type="password" id="loginPassword" class="form-control" name="loginPassword" required/>
                                                         <label class="form-label" for="loginPassword">Password</label>
                                                     </div>
 
@@ -318,7 +318,7 @@ include './db/database.php';
                                                         <div class="col-md-6 d-flex justify-content-center">
                                                         <!-- Checkbox -->
                                                         <div class="form-check mb-3 mb-md-0">
-                                                            <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
+                                                            <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked  required/>
                                                             <label class="form-check-label" for="loginCheck"> Remember me </label>
                                                         </div>
                                                         </div>
@@ -342,35 +342,35 @@ include './db/database.php';
                                             <form action="" method="POST" autocomplete="off" >
                                                             <!-- Name input -->
                                                             <div class="form-outline mb-4">
-                                                                <input type="text" id="registerFirstName" class="form-control" name="registerFirstName"/>
+                                                                <input type="text" id="registerFirstName" class="form-control" name="registerFirstName" required/>
                                                                 <label class="form-label" for="registerName">Firstname</label>
                                                             </div>
                                                             <div class="form-outline mb-4">
-                                                                <input type="text" id="registerLastName" class="form-control" name="registerLastName"/>
+                                                                <input type="text" id="registerLastName" class="form-control" name="registerLastName" required/>
                                                                 <label class="form-label" for="registerName">Lastname</label>
                                                             </div>
 
                                                             <!-- Username input -->
                                                             <div class="form-outline mb-4">
-                                                                <input type="text" id="registerUsername" class="form-control" name="registerUsername"/>
+                                                                <input type="text" id="registerUsername" class="form-control" name="registerUsername" required/>
                                                                 <label class="form-label" for="registerUsername">Username</label>
                                                             </div>
 
                                                             <!-- Email input -->
                                                             <div class="form-outline mb-4">
-                                                                <input type="email" id="registerEmail" class="form-control" name="registerEmail"/>
+                                                                <input type="email" id="registerEmail" class="form-control" name="registerEmail" required/>
                                                                 <label class="form-label" for="registerEmail">Email</label>
                                                             </div>
 
                                                             <!-- Password input -->
                                                             <div class="form-outline mb-4">
-                                                                <input type="password" id="registerPassword" class="form-control" name="registerPassword"/>
+                                                                <input type="password" id="registerPassword" class="form-control" name="registerPassword" required/>
                                                                 <label class="form-label" for="registerPassword">Password</label>
                                                             </div>
 
                                                             <!-- Repeat Password input -->
                                                             <div class="form-outline mb-4">
-                                                                <input type="text" id="registerAddress" class="form-control" name="registerAddress"/>
+                                                                <input type="text" id="registerAddress" class="form-control" name="registerAddress" required/>
                                                                 <label class="form-label" for="registerAddress">Address</label>
                                                             </div>
 
